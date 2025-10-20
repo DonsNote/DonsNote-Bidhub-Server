@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import auctionRoutes from './routes/auction.routes';
 import bidRoutes from './routes/bid.routes';
+import tradeOfferRoutes from './routes/tradeOffer.routes';
 
 dotenv.config();
 
@@ -21,6 +22,7 @@ app.get('/api/health', (req: Request, res: Response) => {
 
 app.use('/api/auctions', auctionRoutes);
 app.use('/api/bids', bidRoutes);
+app.use('/api/trade-offers', tradeOfferRoutes);
 
 // Start server
 app.listen(PORT, () => {

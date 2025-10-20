@@ -1,10 +1,5 @@
 import { Request, Response } from 'express';
-import { createClient } from '@supabase/supabase-js';
-
-const supabase = createClient(
-  process.env.SUPABASE_URL || '',
-  process.env.SUPABASE_ANON_KEY || ''
-);
+import { supabase } from '../config/supabase';
 
 /**
  * Get all bids for a specific user (Bidding History)
