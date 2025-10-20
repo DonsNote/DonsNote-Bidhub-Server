@@ -1,0 +1,37 @@
+{
+  "name": "bidhub-server",
+  "version": "1.0.0",
+  "description": "DonsNote-Bidhub-Server",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon --exec ts-node src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DonsNote/DonsNote-Bidhub-Server.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/DonsNote/DonsNote-Bidhub-Server/issues"
+  },
+  "homepage": "https://github.com/DonsNote/DonsNote-Bidhub-Server#readme",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.75.1",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.8.1",
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}

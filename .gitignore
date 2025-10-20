@@ -5,3 +5,10 @@
 .claude/
 .serena/
 .mcp.json
+
+# Node
+node_modules/
+
+# Env
+.env
+migrations/
