@@ -117,28 +117,42 @@ export const getItemBids = async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'Item ID is required' });
     }
 
-    // Get all bids for this item with bidder info
-    const { data: bids, error } = await supabase
+    // Get all bids for this item
+    const { data: bids, error: bidsError } = await supabase
       .from('bids')
-      .select(`
-        *,
-        bidder:bidder_id (
-          id,
-          email
-        )
-      `)
+      .select('*')
       .eq('item_id', itemId)
       .order('created_at', { ascending: false });
 
-    if (error) {
-      console.error('Error fetching item bids:', error);
+    if (bidsError) {
+      console.error('Error fetching item bids:', bidsError);
       return res.status(500).json({ error: 'Failed to fetch bids' });
     }
 
-    // Transform the data
-    const transformedBids = bids?.map((bid: any) => ({
+    if (!bids || bids.length === 0) {
+      return res.status(200).json({
+        success: true,
+        data: []
+      });
+    }
+
+    // Group bids by bidder and keep only the latest bid from each bidder
+    const bidderMap = new Map();
+    bids.forEach((bid: any) => {
+      if (!bidderMap.has(bid.bidder_id)) {
+        bidderMap.set(bid.bidder_id, bid);
+      }
+    });
+
+    // Convert map to array and sort by created_at (latest first)
+    const uniqueBids = Array.from(bidderMap.values()).sort((a: any, b: any) => {
+      return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+    });
+
+    // Transform the data - use bidder ID's first 8 characters as identifier
+    const transformedBids = uniqueBids.map((bid: any) => ({
       id: bid.id,
-      bidder: bid.bidder?.email?.split('@')[0] || 'Anonymous',
+      bidder: `User ${bid.bidder_id.substring(0, 8)}`,
       amount: bid.amount,
       time: bid.created_at
     }));
