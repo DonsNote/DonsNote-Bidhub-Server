@@ -14,6 +14,8 @@ const getAllowedOrigins = (): string[] => {
     origins.push('http://localhost:3000');
     origins.push('http://localhost:3001');
     origins.push('http://127.0.0.1:3000');
+    origins.push('http://52.184.83.107:3000');
+    origins.push('http://52.184.83.107');
   }
 
   // 프로덕션 환경
